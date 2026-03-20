@@ -1,0 +1,144 @@
+﻿@{
+    ViewData["Title"] = "Dịch vụ";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<link href="~/css/services.css" rel="stylesheet" />
+<link href="https://unpkg.com/aos@next/dist/aos.css" rel="stylesheet">
+
+<!-- HERO -->
+<section class="service-hero">
+    <div class="overlay">
+        <h1 data-aos="fade-up">Excellence in Every Detail</h1>
+        <p data-aos="fade-up" data-aos-delay="150">
+            Chăm sóc hoàn hảo cho chiếc xe của bạn
+        </p>
+        <a href="#booking" class="btn btn-cta" data-aos="fade-up" data-aos-delay="300">
+            Đặt lịch ngay
+        </a>
+    </div>
+</section>
+
+<!-- SERVICE GRID -->
+<section class="container py-5">
+    <h2 class="section-title text-center mb-5">Dịch vụ của chúng tôi</h2>
+
+    <div class="row g-4">
+        <div class="col-md-3">
+            <div class="service-card">
+                <i class="bi bi-gear"></i>
+                <h5>Bảo dưỡng</h5>
+            </div>
+        </div>
+
+        <div class="col-md-3">
+            <div class="service-card">
+                <i class="bi bi-tools"></i>
+                <h5>Sửa chữa</h5>
+            </div>
+        </div>
+
+        <div class="col-md-3">
+            <div class="service-card">
+                <i class="bi bi-brush"></i>
+                <h5>Đồng sơn</h5>
+            </div>
+        </div>
+
+        <div class="col-md-3">
+            <div class="service-card">
+                <i class="bi bi-box"></i>
+                <h5>Phụ tùng</h5>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- WORKFLOW -->
+<section class="workflow-section py-5">
+    <div class="container text-center">
+        <h2 class="section-title mb-5">Quy trình dịch vụ</h2>
+
+        <div class="workflow">
+            <div>Tiếp nhận</div>
+            <div>Kiểm tra</div>
+            <div>Báo giá</div>
+            <div>Thực hiện</div>
+            <div>Giao xe</div>
+        </div>
+    </div>
+</section>
+
+<!-- BOOKING -->
+<section id="booking" class="container py-5">
+    <h2 class="section-title text-center mb-5">Đặt lịch dịch vụ</h2>
+
+    <form class="booking-form">
+        <input type="text" placeholder="Họ tên" />
+        <input type="text" placeholder="Số điện thoại" />
+        <input type="date" />
+        <select>
+            <option>Chọn dịch vụ</option>
+            <option>Bảo dưỡng</option>
+            <option>Sửa chữa</option>
+        </select>
+
+        <button class="btn btn-cta">Đặt lịch</button>
+    </form>
+</section>
+
+<!-- PRIVILEGE -->
+<section class="privilege-section">
+    <div class="container text-center">
+        <h2>24/7 Roadside Assistance</h2>
+        <p>Hỗ trợ cứu hộ mọi lúc mọi nơi</p>
+    </div>
+</section>
+
+<!-- TEAM -->
+<section class="container py-5">
+    <h2 class="section-title text-center mb-5">Đội ngũ chuyên gia</h2>
+
+    <div class="row g-4">
+        <div class="col-md-3"><div class="team-card">Kỹ thuật viên</div></div>
+        <div class="col-md-3"><div class="team-card">Kỹ thuật viên</div></div>
+        <div class="col-md-3"><div class="team-card">Kỹ thuật viên</div></div>
+        <div class="col-md-3"><div class="team-card">Kỹ thuật viên</div></div>
+    </div>
+</section>
+
+<!-- TESTIMONIAL -->
+<section class="container py-5">
+    <h2 class="section-title text-center mb-5">Khách hàng nói gì?</h2>
+
+    <div class="row">
+        <div class="col-md-4">
+            <div class="testimonial">Dịch vụ rất chuyên nghiệp</div>
+        </div>
+        <div class="col-md-4">
+            <div class="testimonial">Nhanh chóng và uy tín</div>
+        </div>
+        <div class="col-md-4">
+            <div class="testimonial">Sẽ quay lại lần sau</div>
+        </div>
+    </div>
+</section>
+
+<script src="https://unpkg.com/aos@next/dist/aos.js"></script>
+<script>
+    AOS.init({ duration: 1000 });
+</script>
+<script>
+    document.querySelector(".booking-form").addEventListener("submit", function(e){
+        e.preventDefault();
+        alert("Đặt lịch thành công!");
+    });
+</script>
+<script>
+    AOS.init({
+        duration: 900,
+        easing: 'ease-out-cubic',
+        once: true,
+        offset: 80
+    });
+</script>

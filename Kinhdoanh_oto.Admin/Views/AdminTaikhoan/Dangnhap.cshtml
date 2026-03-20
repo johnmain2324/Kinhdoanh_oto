@@ -1,0 +1,76 @@
+﻿@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Admin Login</title>
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css" rel="stylesheet">
+    <link rel="stylesheet" href="~/css/admin-login.css" />
+</head>
+
+<body>
+
+<div class="admin-login-wrapper">
+
+    <div class="admin-login-box">
+
+        <div class="login-header text-center">
+            <i class="bi bi-shield-lock-fill"></i>
+            <h4>Admin Control Panel</h4>
+            <p>Hệ thống quản trị nội bộ</p>
+        </div>
+
+            <form asp-action="Dangnhap" method="post">
+
+                <div class="mb-3">
+                    <label>ID đăng nhập</label>
+                    <input name="email" type="text" class="form-control admin-input" required>
+                </div>
+
+                <div class="mb-3">
+                    <label>Mật khẩu</label>
+                    <input name="matkhau" type="password" class="form-control admin-input" required>
+                </div>
+
+                <div class="mb-4">
+                    <label>Mã bảo mật</label>
+                    <input name="mabaomat" type="text" class="form-control admin-input" required>
+                </div>
+
+                @if (ViewBag.Loi != null)
+                {
+                    <div class="alert alert-danger">
+                        @ViewBag.Loi
+                    </div>
+                }
+
+                <button type="submit" class="btn btn-admin w-100">
+                    Đăng nhập hệ thống
+                </button>
+
+            </form>
+
+            <div class="admin-note text-center mt-4">
+            Truy cập trái phép sẽ bị ghi log hệ thống.
+        </div>
+
+    </div>
+
+</div>
+
+<script>
+    const toggle = document.querySelector(".toggle-pass");
+    const input = document.querySelector("input[type='password']");
+    toggle.addEventListener("click", () => {
+        input.type = input.type === "password" ? "text" : "password";
+    });
+</script>
+
+</body>
+</html>

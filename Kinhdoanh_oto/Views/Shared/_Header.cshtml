@@ -1,0 +1,187 @@
+<<<<<<< HEAD
+﻿<link href="~/css/style.css" rel="stylesheet" />
+
+<nav class="navbar navbar-expand-lg navbar-dark navbar-custom luxury-navbar sticky-top">
+=======
+﻿<nav class="navbar navbar-expand-lg navbar-dark navbar-custom sticky-top">
+>>>>>>> 100e3314054e6d0ab23d3feb76078d32588c7324
+    <div class="container">
+        <div class="d-flex align-items-center">
+
+            <!-- Nút menu -->
+            <button class="menu-btn me-3" data-bs-toggle="offcanvas" data-bs-target="#sidebarMenu">
+                <i class="bi bi-list"></i>
+            </button>
+
+            <!-- Logo -->
+            <a class="navbar-brand fw-bold mb-0" asp-controller="Trangchu" asp-action="Index">
+                KINH DOANH Ô TÔ
+            </a>
+
+        </div>
+
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#menu">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse" id="menu">
+            <ul class="navbar-nav ms-auto">
+                <li class="nav-item">
+                    <a class="nav-link" asp-controller="Trangchu" asp-action="Index">Trang chủ</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" asp-controller="Muaxe" asp-action="Index">Mua xe</a>
+                </li>
+                <li class="nav-item">
+<<<<<<< HEAD
+                    <a class="nav-link" asp-controller="Dichvu" asp-action="Index">Dịch vụ</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" asp-controller="Taichinh" asp-action="Index">Tài chính</a>
+=======
+                    <a class="nav-link">Dịch vụ</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link">Tài chính</a>
+>>>>>>> 100e3314054e6d0ab23d3feb76078d32588c7324
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link">Liên hệ</a>
+                </li>
+<<<<<<< HEAD
+                <li class="nav-item dropdown">
+                    @{
+                        var userName = Context.Session.GetString("UserName");
+                    }
+
+                    @if (!string.IsNullOrEmpty(userName))
+                    {
+                        <!-- USER ĐÃ LOGIN -->
+                        <a class="nav-link dropdown-toggle d-flex align-items-center gap-1"
+                           href="#"
+                           role="button"
+                           data-bs-toggle="dropdown">
+
+                            <i class="fa fa-user"></i>
+                            <span>@userName</span>
+                        </a>
+
+                        <ul class="dropdown-menu dropdown-menu-end">
+                            <li>
+                                <a class="dropdown-item" href="/Taikhoan/Thongtin">
+                                    Thông tin
+                                </a>
+                            </li>
+                            <li>
+                                <a class="dropdown-item" href="/Taikhoan/Dangxuat">
+                                    Đăng xuất
+                                </a>
+                            </li>
+                        </ul>
+                    }
+                    else
+                    {
+                        <!-- CHƯA LOGIN -->
+                        <a class="nav-link" asp-controller="Taikhoan" asp-action="Dangnhap">
+                            Tài khoản
+                        </a>
+                    }
+                </li>
+            </ul>
+
+            <a class="btn btn-cta ms-3">Đăng ký lái thử</a>
+
+=======
+                <li class="nav-item">
+                    <a class="nav-link"
+                       asp-controller="Taikhoan"
+                       asp-action="Dangnhap">
+                        Tài khoản
+                    </a>
+                </li>
+
+            </ul>
+
+            <a class="btn btn-cta ms-3">Đăng ký lái thử</a>
+>>>>>>> 100e3314054e6d0ab23d3feb76078d32588c7324
+        </div>
+    </div>
+</nav>
+<div class="offcanvas offcanvas-start sidebar-custom" tabindex="-1" id="sidebarMenu">
+
+    <div class="offcanvas-header">
+        <h5 class="offcanvas-title">Menu</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="offcanvas"></button>
+    </div>
+
+    <div class="offcanvas-body">
+
+        <!-- 1. MUA XE -->
+        <div class="menu-group">
+            <h6>🚗 Mua xe</h6>
+            <a href="#">Tất cả dòng xe</a>
+            <a href="#">Sedan</a>
+            <a href="#">SUV</a>
+            <a href="#">Hatchback</a>
+            <a href="#">MPV</a>
+            <a href="#">Bán tải</a>
+            <a href="#">Xe điện (EV)</a>
+            <a href="#">Xe Hybrid</a>
+            <a href="#">Xe Xăng/Dầu</a>
+            <a href="#">Xe cũ / Lướt</a>
+            <a href="#">So sánh xe</a>
+        </div>
+
+        <!-- 2. TÀI CHÍNH -->
+        <div class="menu-group">
+            <h6>💰 Công cụ tài chính</h6>
+            <a href="#">Dự toán trả góp</a>
+            <a href="#">Bảng giá lăn bánh</a>
+            <a href="#">Định giá xe cũ</a>
+        </div>
+
+        <!-- 3. HẬU MÃI -->
+        <div class="menu-group">
+            <h6>🔧 Dịch vụ & hậu mãi</h6>
+            <a href="#">Đặt lịch bảo dưỡng</a>
+            <a href="#">Phụ tùng & phụ kiện</a>
+            <a class="text-danger fw-bold" href="#">Cứu hộ 24/7</a>
+            <a href="#">Chính sách bảo hành</a>
+        </div>
+
+        <!-- 4. TRẢI NGHIỆM -->
+        <div class="menu-group">
+            <h6>📰 Trải nghiệm & tin tức</h6>
+            <a href="#">Đăng ký lái thử</a>
+            <a href="#">Hệ thống showroom</a>
+            <a href="#">Blog & đánh giá</a>
+            <a href="#">Khuyến mãi</a>
+        </div>
+
+        <hr>
+
+        <!-- 5. CÁ NHÂN -->
+        <div class="menu-group">
+            <h6>👤 Cá nhân hóa</h6>
+            <a href="#">Tài khoản của tôi</a>
+            <a href="#">Xe đã lưu</a>
+            <a href="#">Ngôn ngữ: VI / EN</a>
+        </div>
+
+    </div>
+<<<<<<< HEAD
+</div>
+<script>
+    window.addEventListener("scroll", function () {
+        const nav = document.querySelector(".luxury-navbar");
+
+        if (window.scrollY > 50) {
+            nav.classList.add("scrolled");
+        } else {
+            nav.classList.remove("scrolled");
+        }
+    });
+</script>
+=======
+</div>
+>>>>>>> 100e3314054e6d0ab23d3feb76078d32588c7324

@@ -1,0 +1,120 @@
+﻿/* home-luxury.css - Modern Luxury Automotive Dark Theme (Harmonized) */
+
+:root {
+    --deep-black: #0A0A0A;
+    --card-bg: rgba(20, 20, 20, 0.85); /* Đen đậm glass cho card */
+    --silver: #B0B0B0;
+    --gold-accent: #C0A062; /* Vàng kim loại nhẹ cho giá, highlight */
+    --racing-red: #E10600;
+    --glass: rgba(15, 15, 15, 0.82);
+    --glass-border: rgba(192, 192, 192, 0.10);
+    --text-light: #E0E0E0;
+    --text-muted: #A0A0A0;
+}
+
+html, body {
+    background: var(--deep-black) !important;
+    color: var(--text-light) !important;
+    min-height: 100vh;
+}
+
+.container, section:not(.hero-section), .row {
+    background: transparent !important;
+}
+
+/* Hero - giữ tối sâu */
+.hero-section {
+    background: linear-gradient(to bottom, rgba(10,10,10,0.6), rgba(10,10,10,0.95)), url('/images/43f7ef16-3b51-4220-93ec-f37c68e14ccd.jpg') center/cover no-repeat fixed;
+}
+
+/* Car card - hòa hợp đen sang trọng */
+.car-card {
+    background: var(--card-bg);
+    backdrop-filter: blur(16px);
+    border: 1px solid var(--glass-border);
+    border-radius: 20px;
+    overflow: hidden;
+    transition: all 0.5s cubic-bezier(0.23,1,0.32,1);
+    box-shadow: 0 10px 40px rgba(0,0,0,0.7);
+}
+
+    .car-card:hover {
+        transform: translateY(-16px);
+        box-shadow: 0 30px 80px rgba(225,6,0,0.18);
+    }
+
+.car-body {
+    padding: 1.5rem 1.5rem 2rem;
+    background: transparent;
+}
+
+.car-price {
+    font-size: 1.9rem;
+    font-weight: 800;
+    color: var(--gold-accent); /* Chuyển sang vàng kim loại cho sang */
+    text-shadow: 0 1px 4px rgba(0,0,0,0.6);
+}
+
+    .car-price::before {
+        content: " ";
+        display: inline-block;
+        width: 8px;
+        height: 8px;
+        background: var(--racing-red);
+        border-radius: 50%;
+        margin-right: 8px;
+        box-shadow: 0 0 12px var(--racing-red);
+    }
+
+/* Button Xem chi tiết - đỏ + vàng hover */
+.btn-outline-light {
+    border-color: var(--racing-red);
+    color: var(--text-light);
+    transition: all 0.4s;
+}
+
+    .btn-outline-light:hover {
+        background: linear-gradient(135deg, var(--racing-red), #b00000);
+        border-color: transparent;
+        color: white;
+        transform: scale(1.05);
+    }
+
+/* Section title - thêm gradient đỏ-vàng */
+.section-title {
+    position: relative;
+    color: var(--text-light);
+}
+
+    .section-title::after {
+        background: linear-gradient(to right, var(--racing-red), var(--gold-accent));
+        height: 5px;
+        box-shadow: 0 0 20px rgba(225,6,0,0.4);
+    }
+
+/* Testimonial & Why us cards - dùng cùng card-bg */
+.p-4.rounded-4, .why-col {
+    background: var(--card-bg);
+    backdrop-filter: blur(14px);
+    border: 1px solid var(--glass-border);
+    border-radius: 16px;
+    box-shadow: 0 8px 30px rgba(0,0,0,0.5);
+}
+
+.why-icon {
+    color: var(--gold-accent); /* Icon vàng cho premium */
+}
+
+/* CTA section - gradient đen-đỏ */
+.text-center.py-5[style*="linear-gradient"] {
+    background: linear-gradient(135deg, var(--deep-black), #1a0000) !important;
+}
+
+/* Global override Bootstrap trắng */
+.bg-white, .bg-light, .bg-body {
+    background-color: var(--card-bg) !important;
+}
+
+.text-muted {
+    color: var(--text-muted) !important;
+}

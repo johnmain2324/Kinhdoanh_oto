@@ -1,0 +1,442 @@
+﻿@model List<Kinhdoanh_oto.Models.Car>
+
+@{
+    ViewData["Title"] = "Trang chủ";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<<<<<<< HEAD
+<!-- Thêm CDN cần thiết (nên đưa vào _Layout nếu có thể) -->
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Montserrat:wght@500;600;700;800&display=swap" rel="stylesheet">
+<link href="https://unpkg.com/aos@next/dist/aos.css" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+<link href="~/css/site.css" rel="stylesheet" />
+<link href="~/css/style.css" rel="stylesheet" />
+<!-- HERO -->
+<section class="hero-section" data-aos="fade">
+    <div class="container hero-content">
+        <h1 class="hero-title fw-bold" data-aos="fade-up" data-aos-delay="150">Tìm chiếc xe hoàn hảo cho bạn</h1>
+        <p class="hero-lead" data-aos="fade-up" data-aos-delay="300">Xe mới - Xe cũ - Xe điện - Giá tốt nhất thị trường</p>
+        <a asp-controller="Xe" asp-action="Muaxe" class="btn btn-luxury btn-lg" data-aos="fade-up" data-aos-delay="450">
+=======
+
+<!-- HERO -->
+
+<section class="hero-section">
+    <div class="container">
+        <h1 class="display-4 fw-bold">Tìm chiếc xe hoàn hảo cho bạn</h1>
+        <p class="lead">Xe mới - Xe cũ - Xe điện - Giá tốt nhất thị trường</p>
+
+        <a asp-controller="Xe" asp-action="Muaxe" class="btn btn-cta btn-lg mt-3">
+>>>>>>> 100e3314054e6d0ab23d3feb76078d32588c7324
+            Khám phá ngay
+        </a>
+    </div>
+</section>
+
+<<<<<<< HEAD
+<!-- XE ĐANG BÁN -->
+<section class="container py-5">
+    <h2 class="section-title text-center mb-5" data-aos="fade-up">Xe đang bán</h2>
+    <div class="row g-4">
+        @foreach (var car in Model)
+        {
+            <div class="col-lg-3 col-md-4 col-sm-6 mb-4" data-aos="fade-up" data-aos-delay="@(Model.IndexOf(car) * 80)">
+                <div class="car-card">
+                    <div class="car-img-container">
+                        <img src="@car.Thumbnail" class="car-img" alt="@car.TenXe">
+                    </div>
+                    <div class="car-body text-center">
+                        <h5 class="fw-bold mb-1">@car.TenXe</h5>
+                        <p class="text-muted mb-2">@car.HangXe</p>
+                        <p class="car-price">@String.Format("{0:N0} đ", car.GiaNiemYet)</p>
+                        <a asp-controller="Muaxe"
+                           asp-action="Index"
+                           asp-route-id="@car.Id"
+                           class="btn btn-outline-light w-100 mt-2 border-2 hover-glow">
+                            Xem chi tiết →
+                        </a>
+=======
+
+<!-- XE ĐANG BÁN -->
+
+<section class="container mt-5">
+
+    <h2 class="text-center mb-4 fw-bold">
+        Xe đang bán
+    </h2>
+
+    <div class="row">
+
+        @foreach (var car in Model)
+        {
+            <div class="col-lg-3 col-md-4 col-sm-6 mb-4">
+
+                <div class="car-card">
+
+                    <img src="@car.Thumbnail" class="car-img">
+
+                    <div class="car-body">
+
+                        <h5>@car.TenXe</h5>
+
+                        <p class="car-brand">@car.HangXe</p>
+
+                        <p class="car-price">
+                            @String.Format("{0:N0} đ", car.GiaNiemYet)
+                        </p>
+
+                        <button class="btn btn-danger w-100"
+                                onclick="openCarModal(
+                            '@car.TenXe',
+                            '@car.HangXe',
+                            '@car.NamSanXuat',
+                            '@car.GiaNiemYet',
+                            '@car.Thumbnail',
+                            `@Html.Raw(car.Noidung?.Replace("`",""))`)">
+
+                            Xem chi tiết
+
+                        </button>
+
+>>>>>>> 100e3314054e6d0ab23d3feb76078d32588c7324
+                    </div>
+                </div>
+            </div>
+        }
+<<<<<<< HEAD
+=======
+
+>>>>>>> 100e3314054e6d0ab23d3feb76078d32588c7324
+    </div>
+</section>
+
+
+<<<<<<< HEAD
+<!-- XE NỔI BẬT (giữ nguyên logic lặp giống phần trên) -->
+<section class="container py-5">
+    <h2 class="section-title text-center mb-5" data-aos="fade-up">Xe nổi bật</h2>
+    <div class="row g-4">
+        @foreach (var car in Model)
+        {
+            <div class="col-lg-3 col-md-4 col-sm-6 mb-4" data-aos="fade-up" data-aos-delay="@(Model.IndexOf(car) * 80)">
+                <div class="car-card">
+                    <div class="car-img-container">
+                        <img src="@car.Thumbnail" class="car-img" alt="@car.TenXe">
+                    </div>
+                    <div class="car-body text-center">
+                        <h5 class="fw-bold mb-1">@car.TenXe</h5>
+                        <p class="text-muted mb-2">@car.HangXe</p>
+                        <p class="car-price">@String.Format("{0:N0} đ", car.GiaNiemYet)</p>
+                        <a asp-controller="Muaxe"
+                           asp-action="Index"
+                           asp-route-id="@car.Id"
+                           class="btn btn-outline-light w-100 mt-2 border-2 hover-glow">
+                            Xem chi tiết →
+                        </a>
+=======
+<!-- XE NỔI BẬT -->
+
+<section class="container mt-5">
+
+    <h2 class="text-center fw-bold mb-4">
+        Xe nổi bật
+    </h2>
+
+    <div class="row">
+
+        @foreach (var car in Model)
+        {
+            <div class="col-lg-3 col-md-4 col-sm-6 mb-4">
+
+                <div class="card shadow-sm h-100">
+
+                    <img src="@car.Thumbnail"
+                         class="card-img-top"
+                         style="height:200px;object-fit:cover;">
+
+                    <div class="card-body">
+
+                        <h5 class="card-title">@car.TenXe</h5>
+
+                        <p class="text-muted">@car.HangXe</p>
+
+                        <p class="text-danger fw-bold">
+                            @String.Format("{0:N0} đ", car.GiaNiemYet)
+                        </p>
+
+                        <button class="btn btn-dark w-100"
+                                onclick="openCarModal(
+                            '@car.TenXe',
+                            '@car.HangXe',
+                            '@car.NamSanXuat',
+                            '@car.GiaNiemYet',
+                            '@car.Thumbnail',
+                            `@Html.Raw(car.Noidung?.Replace("`",""))`)">
+
+                            Xem chi tiết
+
+                        </button>
+
+>>>>>>> 100e3314054e6d0ab23d3feb76078d32588c7324
+                    </div>
+                </div>
+            </div>
+        }
+<<<<<<< HEAD
+=======
+
+>>>>>>> 100e3314054e6d0ab23d3feb76078d32588c7324
+    </div>
+</section>
+
+
+<<<<<<< HEAD
+<!-- VỀ CHÚNG TÔI + TẠI SAO CHỌN -->
+<section class="container py-5">
+    <div class="row text-center mb-5">
+        <div class="col-12" data-aos="fade-up">
+            <h2 class="section-title">Về chúng tôi</h2>
+            <p class="text-muted w-75 mx-auto mt-3">
+                Chúng tôi cung cấp những dòng xe chất lượng cao từ các thương hiệu hàng đầu thế giới.
+                Cam kết minh bạch, giá tốt và dịch vụ hậu mãi chuyên nghiệp.
+            </p>
+        </div>
+    </div>
+
+    <div class="row text-center g-4" data-aos="fade-up" data-aos-delay="200">
+        <div class="col-md-3 why-col">
+            <i class="bi bi-check-circle-fill why-icon"></i>
+            <h5 class="mt-3">Xe chính hãng</h5>
+            <p class="text-muted">100% xe nhập khẩu & phân phối chính hãng</p>
+        </div>
+        <div class="col-md-3 why-col">
+            <i class="bi bi-currency-dollar why-icon"></i>
+            <h5 class="mt-3">Giá tốt</h5>
+            <p class="text-muted">Giá cạnh tranh nhất thị trường</p>
+        </div>
+        <div class="col-md-3 why-col">
+            <i class="bi bi-shield-lock why-icon"></i>
+            <h5 class="mt-3">Bảo hành</h5>
+            <p class="text-muted">Dịch vụ hậu mãi chuyên nghiệp</p>
+        </div>
+        <div class="col-md-3 why-col">
+            <i class="bi bi-truck why-icon"></i>
+            <h5 class="mt-3">Nhanh chóng</h5>
+            <p class="text-muted">Giao xe toàn quốc trong 48h</p>
+        </div>
+    </div>
+</section>
+
+<!-- DANH MỤC XE -->
+<section class="container py-5">
+    <h2 class="section-title text-center mb-5" data-aos="fade-up">Danh mục xe</h2>
+    <div class="row g-4">
+        <div class="col-md-3" data-aos="zoom-in">
+            <div class="category-item" style="background-image:url('https://images.unsplash.com/photo-1502877338535-766e3a6052c0?w=800')">
+                <div class="category-overlay">Sedan</div>
+            </div>
+        </div>
+        <div class="col-md-3" data-aos="zoom-in" data-aos-delay="100">
+            <div class="category-item" style="background-image:url('https://images.unsplash.com/photo-1502489597346-d8389a6a10a8?w=800')">
+                <div class="category-overlay">SUV</div>
+            </div>
+        </div>
+        <div class="col-md-3" data-aos="zoom-in" data-aos-delay="200">
+            <div class="category-item" style="background-image:url('https://images.unsplash.com/photo-1552519507-da3b142c6e3d?w=800')">
+                <div class="category-overlay">Hatchback</div>
+            </div>
+        </div>
+        <div class="col-md-3" data-aos="zoom-in" data-aos-delay="300">
+            <div class="category-item" style="background-image:url('https://images.unsplash.com/photo-1593941707882-a5bba5b185f4?w=800')">
+                <div class="category-overlay">Xe điện</div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- TESTIMONIAL -->
+<section class="container py-5">
+    <h2 class="section-title text-center mb-5" data-aos="fade-up">Khách hàng nói gì?</h2>
+    <div class="row g-4">
+        <div class="col-md-4" data-aos="fade-up">
+            <div class="p-4 rounded-4" style="background:var(--glass); backdrop-filter:blur(12px); border:1px solid var(--glass-border);">
+                <p>"Dịch vụ rất tốt, nhân viên tư vấn nhiệt tình."</p>
+                <b>- Anh Minh</b>
+            </div>
+        </div>
+        <div class="col-md-4" data-aos="fade-up" data-aos-delay="150">
+            <div class="p-4 rounded-4" style="background:var(--glass); backdrop-filter:blur(12px); border:1px solid var(--glass-border);">
+                <p>"Xe đẹp, giá hợp lý, thủ tục nhanh chóng."</p>
+                <b>- Chị Lan</b>
+            </div>
+        </div>
+        <div class="col-md-4" data-aos="fade-up" data-aos-delay="300">
+            <div class="p-4 rounded-4" style="background:var(--glass); backdrop-filter:blur(12px); border:1px solid var(--glass-border);">
+                <p>"Sẽ tiếp tục ủng hộ lần sau."</p>
+                <b>- Anh Huy</b>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- CTA -->
+<section class="text-center py-5" style="background:linear-gradient(135deg, #0B0B0B, #1a1a1a);">
+    <div class="container">
+        <h2 class="fw-bold mb-4" data-aos="fade-up">Sẵn sàng sở hữu chiếc xe mơ ước?</h2>
+        <a asp-controller="Xe" asp-action="Muaxe" class="btn btn-luxury btn-lg" data-aos="fade-up" data-aos-delay="200">
+            Mua xe ngay
+        </a>
+    </div>
+</section>
+
+<!-- MODAL (giữ nguyên logic) -->
+<div class="modal fade" id="carModal" tabindex="-1">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header border-0">
+                <h5 id="carName" class="fw-bold"></h5>
+                <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-md-6">
+                        <img id="carImage" class="img-fluid rounded" alt="">
+                    </div>
+                    <div class="col-md-6">
+                        <p><b>Hãng xe:</b> <span id="carBrand"></span></p>
+                        <p><b>Năm sản xuất:</b> <span id="carYear"></span></p>
+                        <p class="price-big fs-3 fw-bold" id="carPrice"></p>
+                        <hr>
+                        <div id="carDesc"></div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer border-0">
+                <a id="btnDatXe" class="btn btn-outline-light">Đặt xe</a>
+                <a id="btnMuaXe" class="btn btn-danger">Mua xe</a>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Floating Chat Button -->
+
+<script src="https://unpkg.com/aos@next/dist/aos.js"></script>
+<script>
+    AOS.init({ duration: 1000, once: true });
+
+    function openCarModal(id, name, brand, year, price, image, desc) {
+        document.getElementById("carName").innerText = name;
+        document.getElementById("carBrand").innerText = brand;
+        document.getElementById("carYear").innerText = year;
+        document.getElementById("carPrice").innerText = Number(price).toLocaleString('vi-VN') + " đ";
+        document.getElementById("carImage").src = image;
+        document.getElementById("carDesc").innerHTML = desc;
+
+        document.getElementById("btnMuaXe").href = "/Muaxe/Index/" + id;
+        document.getElementById("btnDatXe").href = "/Muaxe/Datcoc/" + id;
+
+        var modal = new bootstrap.Modal(document.getElementById('carModal'));
+        modal.show();
+    }
+
+    // Toggle chat (nếu bạn đã có logic chat riêng thì giữ nguyên, đây chỉ là nút)
+    document.getElementById('chatToggle')?.addEventListener('click', () => {
+        alert('Chatbot đang được phát triển. Bạn cần tư vấn gì về xe?');
+        // Thay bằng logic mở chat thật của bạn
+    });
+=======
+<!-- MODAL CHI TIẾT XE -->
+
+<div class="modal fade" id="carModal" tabindex="-1">
+
+    <div class="modal-dialog modal-lg">
+
+        <div class="modal-content">
+
+            <div class="modal-header">
+
+                <h5 id="carName" class="fw-bold"></h5>
+
+                <button class="btn-close" data-bs-dismiss="modal"></button>
+
+            </div>
+
+
+            <div class="modal-body">
+
+                <div class="row">
+
+                    <div class="col-md-6">
+
+                        <img id="carImage"
+                             class="img-fluid rounded">
+
+                    </div>
+
+
+                    <div class="col-md-6">
+
+                        <p><b>Hãng xe:</b> <span id="carBrand"></span></p>
+
+                        <p><b>Năm sản xuất:</b> <span id="carYear"></span></p>
+
+                        <p class="price-big" id="carPrice"></p>
+
+                        <hr>
+
+                        <div id="carDesc"></div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <div class="modal-footer">
+
+                <a href="/Xe/Muaxe" class="btn btn-outline-dark">
+                    Đặt xe
+                </a>
+
+                <a href="/Xe/Muaxe" class="btn btn-danger">
+                    Mua xe
+                </a>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+
+
+<script>
+
+    function openCarModal(name,brand,year,price,image,desc)
+    {
+
+    document.getElementById("carName").innerText=name;
+
+    document.getElementById("carBrand").innerText=brand;
+
+    document.getElementById("carYear").innerText=year;
+
+    document.getElementById("carPrice").innerText=
+    Number(price).toLocaleString()+" đ";
+
+    document.getElementById("carImage").src=image;
+
+    document.getElementById("carDesc").innerHTML=desc;
+
+    var modal=new bootstrap.Modal(document.getElementById('carModal'));
+
+    modal.show();
+
+    }
+
+>>>>>>> 100e3314054e6d0ab23d3feb76078d32588c7324
+</script>

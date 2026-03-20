@@ -1,0 +1,167 @@
+﻿@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Đăng nhập - Kinh doanh ô tô</title>
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" />
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css" rel="stylesheet">
+
+    <link href="~/css/taikhoan.css" rel="stylesheet" />
+</head>
+
+<body>
+
+    <div class="login-container">
+
+        <div class="login-left">
+            <div class="overlay">
+                <h2>Chạm tới hành trình mơ ước</h2>
+                <p>Khởi đầu trải nghiệm xe đẳng cấp ngay hôm nay</p>
+            </div>
+        </div>
+
+        <div class="login-right">
+
+            <div class="login-box">
+
+                <h3 class="mb-4">Chào mừng bạn trở lại!</h3>
+
+                <div class="role-switch mb-3">
+                    <button class="role-btn active">Khách hàng</button>
+                    <button class="role-btn">Đối tác / Sale</button>
+                </div>
+
+                <form method="post">
+
+                    <div class="mb-3 position-relative">
+                        <input type="text"
+                               name="sodienthoai"
+                               class="form-control custom-input"
+                               placeholder="Số điện thoại">
+                    </div>
+
+                    <div class="mb-2 position-relative">
+                        <input type="password"
+                               name="matkhau"
+                               class="form-control custom-input"
+                               id="password"
+                               placeholder="Mật khẩu">
+
+                        <i class="bi bi-eye toggle-password"
+                           onclick="togglePassword()"></i>
+                    </div>
+
+                    <div class="d-flex justify-content-between mb-3 small">
+                        <div>
+                            <input type="checkbox"> Ghi nhớ đăng nhập
+                        </div>
+                        <a href="#">Quên mật khẩu?</a>
+                    </div>
+
+                    <button type="submit" class="btn btn-login w-100 mb-3">
+                        Đăng nhập
+                    </button>
+
+                    <button type="button" class="btn btn-outline-secondary w-100 mb-4">
+                        Đăng nhập bằng mã OTP
+                    </button>
+
+                    <div class="divider mb-3">Hoặc đăng nhập với</div>
+
+                    <div class="social-login">
+                        <button type="button" id="btnGoogle" class="social-btn">
+                            <i class="bi bi-google"></i>
+                        </button>
+                        <button type="button" class="social-btn">
+                            <i class="bi bi-facebook"></i>
+                        </button>
+                        <button type="button" class="social-btn">
+                            Zalo
+                        </button>
+                    </div>
+
+                    <p class="mt-4 text-center small">
+                        Bạn mới đến lần đầu?
+                        <a href="/Taikhoan/Dangky">Tạo tài khoản</a>
+                    </p>
+
+                </form>
+
+            </div>
+
+        </div>
+
+    </div>
+
+    <!-- Firebase JS SDKs -->
+    <script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-auth-compat.js"></script>
+
+    <script>
+        // Firebase configuration - Thay YOUR_* bằng giá trị từ Firebase Console
+        const firebaseConfig = {
+            apiKey: "AIzaSyDFLkQGewJrP7POD49HogKFUb3tu6TZXqA",
+            authDomain: "car-sell-fc75c.firebaseapp.com",
+            projectId: "car-sell-fc75c",
+            storageBucket: "car-sell-fc75c.firebasestorage.app",
+            messagingSenderId: "447097293162",
+            appId: "1:447097293162:web:bdef232f7d1a4478a83d13",
+            measurementId: "G-GZK2SZDTVN"
+        };
+
+        // Initialize Firebase
+        firebase.initializeApp(firebaseConfig);
+        const auth = firebase.auth();
+
+        document.getElementById('btnGoogle').addEventListener('click', async (e) => {
+            e.preventDefault();
+            
+            try {
+                const provider = new firebase.auth.GoogleAuthProvider();
+                const result = await auth.signInWithPopup(provider);
+                const user = result.user;
+
+                if (!user) {
+                    alert('Không thể lấy thông tin người dùng từ Google');
+                    return;
+                }
+
+                const idToken = await user.getIdToken();
+
+                // Change route to match Razor Pages - use handler name
+                const response = await fetch('/Taikhoan/Dangnhap?handler=SignInWithFirebase', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({ idToken: idToken }),
+                    credentials: 'same-origin'
+                });
+
+                if (response.ok) {
+                    window.location.href = '/';
+                } else {
+                    const errorText = await response.text();
+                    alert('Lỗi đăng nhập: ' + errorText);
+                    console.error('Server error:', errorText);
+                }
+            } catch (error) {
+                console.error('Google Sign-In Error:', error);
+                alert('Lỗi: ' + (error.message || 'Không thể đăng nhập bằng Google'));
+            }
+        });
+
+        function togglePassword() {
+            var input = document.getElementById("password");
+            input.type = input.type === "password" ? "text" : "password";
+        }
+    </script>
+
+</body>
+</html>

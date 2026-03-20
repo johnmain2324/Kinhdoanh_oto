@@ -1,0 +1,126 @@
+﻿@{
+    ViewData["Title"] = "Tài chính";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<link href="~/css/finance.css" rel="stylesheet" />
+
+<!-- HERO -->
+<section class="finance-hero">
+    <div class="overlay">
+        <h1>Giải pháp tài chính linh hoạt</h1>
+        <p>Sở hữu chiếc xe mơ ước dễ dàng hơn bao giờ hết</p>
+    </div>
+</section>
+
+<!-- CALCULATOR -->
+<section class="container py-5">
+    <h2 class="section-title text-center">Tính toán trả góp</h2>
+
+    <div class="loan-card">
+
+        <label>Số tiền vay: <span id="amountValue">500,000,000</span> đ</label>
+        <input type="range" id="amount" min="100000000" max="2000000000" step="50000000" value="500000000">
+
+        <label>Thời hạn (tháng): <span id="monthValue">36</span></label>
+        <input type="range" id="months" min="12" max="84" step="6" value="36">
+
+        <label>Lãi suất (%/năm)</label>
+        <input type="number" id="rate" value="8">
+
+        <div class="result">
+            <h3>Trả mỗi tháng</h3>
+            <h1 id="monthly">0 đ</h1>
+        </div>
+    </div>
+</section>
+
+<!-- PACKAGES -->
+<section class="container py-5">
+    <h2 class="section-title text-center">Gói vay</h2>
+
+    <div class="row g-4">
+        <div class="col-md-4">
+            <div class="finance-card">
+                <h4>Gói tiêu chuẩn</h4>
+                <ul>
+                    <li>Trả góp đều</li>
+                    <li>Lãi suất ổn định</li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="col-md-4">
+            <div class="finance-card">
+                <h4>Gói 50/50</h4>
+                <ul>
+                    <li>Trả trước 50%</li>
+                    <li>Phần còn lại sau 12 tháng</li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="col-md-4">
+            <div class="finance-card">
+                <h4>Balloon</h4>
+                <ul>
+                    <li>Trả ít hàng tháng</li>
+                    <li>Khoản lớn cuối kỳ</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- BANK -->
+<section class="bank-section">
+    <div class="container text-center">
+        <h2>Đối tác ngân hàng</h2>
+        <div class="bank-logos">
+            <span>VIB</span>
+            <span>Techcombank</span>
+            <span>Shinhan</span>
+        </div>
+    </div>
+</section>
+
+<!-- FORM -->
+<section class="container py-5">
+    <h2 class="section-title text-center">Đăng ký tư vấn</h2>
+
+    <form class="finance-form">
+        <input type="text" placeholder="Họ tên">
+        <input type="text" placeholder="Số điện thoại">
+        <input type="text" placeholder="Dòng xe quan tâm">
+
+        <button class="btn btn-cta w-100">Đăng ký ngay</button>
+    </form>
+</section>
+
+<script>
+    const amount = document.getElementById("amount");
+    const months = document.getElementById("months");
+    const rate = document.getElementById("rate");
+
+    function calculate() {
+        let P = parseFloat(amount.value);
+        let n = parseFloat(months.value);
+        let r = parseFloat(rate.value) / 100 / 12;
+
+        let monthly = P * r * Math.pow(1 + r, n) / (Math.pow(1 + r, n) - 1);
+
+        document.getElementById("monthly").innerText =
+            Math.round(monthly).toLocaleString() + " đ";
+
+        document.getElementById("amountValue").innerText =
+            P.toLocaleString();
+
+        document.getElementById("monthValue").innerText = n;
+    }
+
+    amount.oninput = calculate;
+    months.oninput = calculate;
+    rate.oninput = calculate;
+
+    calculate();
+</script>

@@ -1,0 +1,300 @@
+﻿@model Kinhdoanh_oto.Models.Car
+<<<<<<< HEAD
+=======
+
+>>>>>>> 100e3314054e6d0ab23d3feb76078d32588c7324
+@{
+    ViewData["Title"] = "Mua xe";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="container mt-5">
+
+    <div class="row">
+
+        <!-- LEFT : GALLERY -->
+
+        <div class="col-md-7">
+
+            <div class="car-gallery">
+
+                <img id="mainCarImage"
+                     src="@Model.Thumbnail"
+                     class="img-fluid rounded shadow">
+
+<<<<<<< HEAD
+=======
+                <div class="thumb-list mt-3">
+
+                    <img src="@Model.Thumbnail" onclick="changeImage(this.src)">
+                    <img src="/images/car2.jpg" onclick="changeImage(this.src)">
+                    <img src="/images/car3.jpg" onclick="changeImage(this.src)">
+
+                </div>
+
+>>>>>>> 100e3314054e6d0ab23d3feb76078d32588c7324
+            </div>
+
+        </div>
+
+
+        <!-- RIGHT : INFO -->
+
+        <div class="col-md-5">
+
+            <h2 class="fw-bold">@Model.TenXe</h2>
+
+            <p class="text-muted">@Model.HangXe</p>
+
+            <h3 class="price-big mb-3">
+                @String.Format("{0:N0} đ", Model.GiaNiemYet)
+            </h3>
+
+            <hr>
+
+            <h5>Chọn màu xe</h5>
+
+            <div class="color-picker">
+
+                <span class="color black"
+                      onclick="changeColor('/images/car_black.jpg')"></span>
+
+                <span class="color white"
+                      onclick="changeColor('/images/car_white.jpg')"></span>
+
+                <span class="color gray"
+                      onclick="changeColor('/images/car_gray.jpg')"></span>
+
+            </div>
+
+            <hr>
+
+            <h5>Chọn phiên bản</h5>
+
+            <select class="form-select mb-3">
+
+                <option>E200</option>
+                <option>E300 AMG</option>
+                <option>E450 4Matic</option>
+
+            </select>
+
+<<<<<<< HEAD
+            <button class="btn btn-danger w-100 mb-2"
+                    onclick="location.href='/Muaxe/Datcoc/@Model.Id'">
+=======
+            <button class="btn btn-danger w-100 mb-2">
+>>>>>>> 100e3314054e6d0ab23d3feb76078d32588c7324
+                Đặt cọc 50.000.000đ
+            </button>
+
+            <button class="btn btn-outline-dark w-100">
+                Đăng ký lái thử
+            </button>
+
+        </div>
+
+    </div>
+
+</div>
+
+
+<!-- DESCRIPTION -->
+
+<div class="container mt-5">
+
+    <h3>Mô tả</h3>
+
+    <p>
+        @Html.Raw(Model.Noidung)
+    </p>
+
+</div>
+
+
+<!-- ACCORDION -->
+
+<div class="container mt-4">
+
+    <div class="accordion" id="carInfo">
+
+        <div class="accordion-item">
+
+            <h2 class="accordion-header">
+
+                <button class="accordion-button"
+                        data-bs-toggle="collapse"
+                        data-bs-target="#spec">
+
+                    Thông số kỹ thuật
+
+                </button>
+
+            </h2>
+
+            <div id="spec"
+                 class="accordion-collapse collapse show">
+
+                <div class="accordion-body">
+
+                    Công suất: 258 mã lực<br>
+                    Mô-men xoắn: 370 Nm<br>
+                    Tăng tốc 0-100km/h: 6.2s
+
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <div class="accordion-item">
+
+            <h2 class="accordion-header">
+
+                <button class="accordion-button collapsed"
+                        data-bs-toggle="collapse"
+                        data-bs-target="#safety">
+
+                    Công nghệ an toàn
+
+                </button>
+
+            </h2>
+
+            <div id="safety"
+                 class="accordion-collapse collapse">
+
+                <div class="accordion-body">
+
+                    Hệ thống phanh ABS<br>
+                    Cảnh báo điểm mù<br>
+                    Hỗ trợ giữ làn
+
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <div class="accordion-item">
+
+            <h2 class="accordion-header">
+
+                <button class="accordion-button collapsed"
+                        data-bs-toggle="collapse"
+                        data-bs-target="#interior">
+
+                    Nội thất
+
+                </button>
+
+            </h2>
+
+            <div id="interior"
+                 class="accordion-collapse collapse">
+
+                <div class="accordion-body">
+
+                    MBUX Superscreen<br>
+                    Ghế da Nappa<br>
+                    Âm thanh Burmester
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+
+<!-- LOAN CALCULATOR -->
+
+<div class="container mt-5">
+
+    <h3>Tính trả góp</h3>
+
+    <div class="row">
+
+        <div class="col-md-4">
+
+            <label>Số tiền vay</label>
+
+            <input type="number"
+                   id="loanAmount"
+                   class="form-control"
+                   value="1000000000">
+
+        </div>
+
+        <div class="col-md-4">
+
+            <label>Số năm vay</label>
+
+            <input type="number"
+                   id="loanYear"
+                   class="form-control"
+                   value="5">
+
+        </div>
+
+        <div class="col-md-4">
+
+            <label>Lãi suất (%)</label>
+
+            <input type="number"
+                   id="interest"
+                   class="form-control"
+                   value="8">
+
+        </div>
+
+    </div>
+
+    <button onclick="calculateLoan()"
+            class="btn btn-dark mt-3">
+
+        Tính toán
+
+    </button>
+
+    <h4 class="mt-3" id="loanResult"></h4>
+
+</div>
+
+
+<script>
+
+    function changeImage(src)
+    {
+    document.getElementById("mainCarImage").src = src;
+    }
+
+    function changeColor(src)
+    {
+    document.getElementById("mainCarImage").src = src;
+    }
+
+    function calculateLoan(){
+
+    let money=document.getElementById("loanAmount").value;
+
+    let year=document.getElementById("loanYear").value;
+
+    let interest=document.getElementById("interest").value/100/12;
+
+    let months=year*12;
+
+    let pay=money*(interest*Math.pow(1+interest,months))/
+    (Math.pow(1+interest,months)-1);
+
+    document.getElementById("loanResult").innerText=
+    "Trả mỗi tháng: "+Math.round(pay).toLocaleString()+" đ";
+
+    }
+
+</script>

@@ -1,0 +1,104 @@
+﻿<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>@ViewData["Title"] - Kinh doanh ô tô</title>
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" />
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css" rel="stylesheet">
+
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+
+    <link href="~/css/style.css" rel="stylesheet" />
+
+
+</head>
+
+<body>
+
+    @await Html.PartialAsync("_Header")
+
+    <div>
+        @RenderBody()
+    </div>
+
+    @await Html.PartialAsync("_Footer")
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+
+    <!-- CHATBOX -->
+
+    <div id="chatbox">
+
+        <div class="chat-header">
+            AI tư vấn xe 🚗
+        </div>
+
+        <div id="chat-messages"></div>
+
+        <div class="chat-input">
+            <input type="text" id="userInput" placeholder="Bạn muốn tìm xe gì?" />
+
+            <button onclick="sendMessage()">Gửi</button>
+        </div>
+
+    </div>
+
+    <button id="chatToggle" onclick="toggleChat()">💬</button>
+
+
+    <script>
+
+        async function sendMessage(){
+
+        let message = document.getElementById("userInput").value;
+
+        if(message.trim()==="") return;
+
+        document.getElementById("chat-messages").innerHTML +=
+        "<div><b>Bạn:</b> "+message+"</div>";
+
+        let response = await fetch("/AI/AskAI",{
+        method:"POST",
+        headers:{
+        "Content-Type":"application/x-www-form-urlencoded"
+        },
+        body:"message="+message
+        });
+
+        let data = await response.text();
+
+        document.getElementById("chat-messages").innerHTML +=
+        "<div><b>AI:</b> "+data+"</div>";
+
+        document.getElementById("userInput").value="";
+
+        }
+
+
+        let chatVisible = true;
+
+        function toggleChat(){
+
+        const chat = document.getElementById("chatbox");
+
+        if(chatVisible){
+
+        chat.style.display="none";
+        chatVisible=false;
+
+        }else{
+
+        chat.style.display="block";
+        chatVisible=true;
+
+        }
+
+        }
+
+    </script>
+
+</body>
+</html>

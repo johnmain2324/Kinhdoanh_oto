@@ -1,0 +1,143 @@
+﻿@model Kinhdoanh_oto.Core.ViewModels.DatcocViewModel
+
+@{
+    ViewData["Title"] = "Đặt cọc";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+
+    var qrUrl = $"https://img.vietqr.io/image/VCB-123456789-compact.png?amount={Model.TienDatCoc}&addInfo=DATCOC_{Model.Sodienthoai}";
+}
+
+<link href="~/css/Car.css" rel="stylesheet" />
+
+<div class="checkout-wrapper">
+
+    <!-- HEADER -->
+    <div class="checkout-stepper">
+        <div class="step done"><span>01</span>Cấu hình xe</div>
+        <div class="step active"><span>02</span>Thanh toán & Hợp đồng</div>
+        <div class="step"><span>03</span>Hoàn tất</div>
+    </div>
+
+    <!-- 🔥 FORM BAO TOÀN BỘ -->
+    <form asp-action="CreateDeposit" method="post">
+
+        <!-- hidden -->
+        <input type="hidden" name="CarId" value="@Model.CarId" />
+        <input type="hidden" name="TienDatCoc" value="@Model.TienDatCoc" />
+        <input type="hidden" name="SignatureData" id="signatureData" />
+
+        <div class="checkout-grid">
+
+            <!-- LEFT -->
+            <div class="checkout-left">
+
+                <h3>Thông tin khách hàng</h3>
+
+                <input name="Hoten" class="glass-input" placeholder="Họ tên" required>
+                <input name="Sodienthoai" class="glass-input" placeholder="Số điện thoại" required>
+                <input name="Email" class="glass-input" placeholder="Email">
+                <input name="CCCD" class="glass-input" placeholder="Số CCCD">
+                <textarea name="Diachi" class="glass-input" placeholder="Địa chỉ"></textarea>
+
+                <h3>Hợp đồng đặt cọc điện tử</h3>
+
+                <div class="contract-box">
+                    <p>Khách hàng: <b id="previewName"></b></p>
+                    <p>Xe: <b>@Model.TenXe</b></p>
+                    <p>
+                        Số tiền đặt cọc:
+                        <b>@Model.TienDatCoc.ToString("N0") đ</b>
+                    </p>
+                </div>
+
+                <h4>Chữ ký khách hàng</h4>
+                <canvas id="signaturePad"></canvas>
+
+                <!-- SUBMIT -->
+                <button type="submit" class="btn btn-primary mt-3">
+                    Tiếp tục thanh toán
+                </button>
+
+            </div>
+
+            <!-- RIGHT -->
+            <div class="checkout-right">
+
+                <div class="order-summary">
+
+                    <img src="@Model.Thumbnail" class="car-image">
+
+                    <h4>@Model.TenXe</h4>
+
+                    <p>Phiên bản: E-Class</p>
+
+                    <p class="price">
+                        @Model.GiaXe.ToString("N0") đ
+                    </p>
+
+                    <hr>
+
+                    <h3 class="deposit">
+                        Đặt cọc @Model.TienDatCoc.ToString("N0") đ
+                    </h3>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </form>
+
+    <!-- FOOTER -->
+    <div class="security-footer">
+        <p>Thông tin của bạn được bảo mật theo tiêu chuẩn PCI DSS</p>
+        <div class="security-logos">
+            <img src="~/images/ssl.png" />
+            <img src="~/images/pci.png" />
+        </div>
+    </div>
+
+</div>
+
+<script>
+    // ✅ Preview tên vào hợp đồng
+    document.querySelector('input[name="Hoten"]').addEventListener("input", function () {
+        document.getElementById("previewName").innerText = this.value;
+    });
+
+    // ✅ Countdown
+    let time = 900;
+    setInterval(() => {
+        let m = Math.floor(time / 60);
+        let s = time % 60;
+
+        document.getElementById("timer").innerText =
+            m + ":" + (s < 10 ? "0" : "") + s;
+
+        time--;
+    }, 1000);
+
+    // ✅ Signature
+    const canvas = document.getElementById("signaturePad");
+    const ctx = canvas.getContext("2d");
+
+    let drawing = false;
+
+    canvas.addEventListener("mousedown", () => drawing = true);
+    canvas.addEventListener("mouseup", () => drawing = false);
+    canvas.addEventListener("mousemove", draw);
+
+    function draw(e) {
+        if (!drawing) return;
+        ctx.lineWidth = 2;
+        ctx.lineTo(e.offsetX, e.offsetY);
+        ctx.stroke();
+    }
+
+    // ✅ Lưu chữ ký khi submit
+    document.querySelector("form").addEventListener("submit", function () {
+        let data = canvas.toDataURL();
+        document.getElementById("signatureData").value = data;
+    });
+</script>

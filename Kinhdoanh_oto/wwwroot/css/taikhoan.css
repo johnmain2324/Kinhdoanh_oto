@@ -1,0 +1,210 @@
+﻿/* ==============================
+   AUTH PAGES (LOGIN + REGISTER)
+============================== */
+
+body {
+    margin: 0;
+    font-family: 'Inter', sans-serif;
+}
+
+/* CONTAINER */
+
+.login-container {
+    display: flex;
+    min-height: 100vh;
+}
+
+/* LEFT SIDE */
+
+.login-left {
+    flex: 1;
+    position: relative;
+    display: flex;
+    align-items: flex-end;
+    padding: 60px;
+    background: url('/images/register-car.jpg') center center no-repeat;
+    background-size: cover;
+    overflow: hidden;
+}
+
+    .login-left::after {
+        content: "";
+        position: absolute;
+        inset: 0;
+        background: linear-gradient( 135deg, rgba(0,0,0,0.75), rgba(0,0,0,0.3) );
+        pointer-events: none; /* QUAN TRỌNG */
+    }
+
+    .login-left .overlay {
+        position: relative;
+        z-index: 2;
+        color: white;
+        max-width: 400px;
+    }
+
+/* RIGHT SIDE */
+
+.login-right {
+    flex: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: #f8f9fa;
+    position: relative;
+}
+
+/* FORM BOX */
+
+.login-box {
+    width: 420px;
+}
+
+/* INPUT */
+
+.custom-input {
+    border-radius: 10px;
+    padding: 14px;
+    border: 1px solid #ddd;
+    transition: 0.3s;
+    height: 50px;
+}
+
+    .custom-input:focus {
+        border-color: #E10600;
+        box-shadow: 0 0 0 2px rgba(225,6,0,0.1);
+    }
+
+/* PASSWORD ICON */
+
+.toggle-password {
+    position: absolute;
+    right: 15px;
+    top: 12px;
+    cursor: pointer;
+    color: #888;
+}
+
+/* BUTTON */
+
+.btn-login {
+    background-color: #E10600;
+    color: white;
+    padding: 14px;
+    border-radius: 10px;
+    font-weight: 600;
+    transition: 0.3s;
+}
+
+    .btn-login:hover {
+        background-color: #b00000;
+        color: white;
+    }
+
+/* DIVIDER */
+
+.divider {
+    text-align: center;
+    font-size: 14px;
+    color: #888;
+    position: relative;
+    margin: 25px 0;
+}
+
+    .divider::before,
+    .divider::after {
+        content: "";
+        position: absolute;
+        top: 50%;
+        width: 35%;
+        height: 1px;
+        background: #ddd;
+    }
+
+    .divider::before {
+        left: 0;
+    }
+
+    .divider::after {
+        right: 0;
+    }
+
+/* SOCIAL */
+
+.social-login {
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+}
+
+.social-btn {
+    width: 48px;
+    height: 48px;
+    border-radius: 50%;
+    border: 1px solid #ddd;
+    background: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: 0.3s;
+}
+
+    .social-btn:hover {
+        background: #f1f1f1;
+    }
+
+/* PASSWORD STRENGTH */
+
+.password-strength {
+    height: 6px;
+    background: #eee;
+    border-radius: 6px;
+    overflow: hidden;
+    margin-top: 10px;
+}
+
+#strengthBar {
+    height: 6px;
+    width: 0;
+    transition: 0.3s;
+}
+
+/* RESPONSIVE */
+
+@media (max-width: 992px) {
+    .login-left {
+        display: none;
+    }
+
+    .login-box {
+        width: 90%;
+    }
+}
+
+/*OTP*/
+
+#otp-demo-box {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    background: #ff4d4f;
+    color: white;
+    padding: 10px 18px;
+    border-radius: 8px;
+    font-weight: bold;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+    z-index: 9999;
+    animation: fadeIn 0.5s;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(-10px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
