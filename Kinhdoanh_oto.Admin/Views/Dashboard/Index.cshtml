@@ -1,0 +1,236 @@
+﻿@{
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+<div class="container-fluid dashboard-container">
+
+    <h2 class="page-title">Dashboard Overview</h2>
+
+    <!-- STATISTICS -->
+    <div class="row stat-grid">
+
+        <div class="col-md-3">
+            <div class="stat-card blue">
+                <h3>12.5 Tỷ</h3>
+                <p>Doanh thu tháng</p>
+            </div>
+        </div>
+
+        <div class="col-md-3">
+            <div class="stat-card green">
+                <h3>128</h3>
+                <p>Xe trong kho</p>
+            </div>
+        </div>
+
+        <div class="col-md-3">
+            <div class="stat-card orange">
+                <h3>42</h3>
+                <p>Lái thử chờ duyệt</p>
+            </div>
+        </div>
+
+        <div class="col-md-3">
+            <div class="stat-card red">
+                <h3>230</h3>
+                <p>Khách đăng ký</p>
+            </div>
+        </div>
+
+    </div>
+
+
+    <!-- CHARTS -->
+    <div class="row mt-4">
+
+        <div class="col-md-8">
+            <div class="dashboard-card">
+
+                <h4>Doanh thu 6 tháng</h4>
+
+                <canvas id="revenueChart"></canvas>
+
+            </div>
+        </div>
+
+        <div class="col-md-4">
+            <div class="dashboard-card">
+
+                <h4>Nguồn khách</h4>
+
+                <canvas id="sourceChart"></canvas>
+
+            </div>
+        </div>
+
+    </div>
+
+
+    <!-- QUICK ACTION -->
+    <div class="row mt-4">
+
+        <div class="col-md-12">
+
+            <div class="dashboard-card">
+
+                <h4>Hành động nhanh</h4>
+
+                <a class="btn btn-primary" href="/Cars/Create">
+                    Đăng xe mới
+                </a>
+
+                @if (User.IsInRole("Admin"))
+                {
+                    <a class="btn btn-danger" href="/Admin/Users">
+                        Quản lý tài khoản
+                    </a>
+                }
+
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <!-- CAR TABLE -->
+    <div class="row mt-4">
+
+        <div class="col-md-12">
+
+            <div class="dashboard-card">
+
+                <h4>Danh sách xe</h4>
+
+                <table class="table table-striped table-hover">
+
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>Tên xe</th>
+                            <th>Giá</th>
+                            <th>Năm</th>
+                            <th>Người đăng</th>
+                            <th>Trạng thái</th>
+                            <th>Hành động</th>
+                        </tr>
+                    </thead>
+
+                    <tbody id="carTable"></tbody>
+
+                </table>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+
+<script>
+
+    // ===============================
+    // REVENUE CHART
+    // ===============================
+
+    new Chart(document.getElementById("revenueChart"), {
+        type: "line",
+        data: {
+            labels: ["T1", "T2", "T3", "T4", "T5", "T6"],
+            datasets: [
+                {
+                    label: "Doanh thu (Tỷ)",
+                    data: [5, 8, 6, 10, 9, 12],
+                    borderColor: "#2563eb",
+                    tension: 0.4
+                }
+            ]
+        }
+    });
+
+
+    // ===============================
+    // SOURCE CHART
+    // ===============================
+
+    new Chart(document.getElementById("sourceChart"), {
+        type: "doughnut",
+        data: {
+            labels: ["Google", "Facebook", "Direct"],
+            datasets: [
+                {
+                    data: [45, 30, 25]
+                }
+            ]
+        }
+    });
+
+
+    // ===============================
+    // LOAD CARS
+    // ===============================
+
+    function loadCars() {
+
+        $.get("/api/cars", function (data) {
+
+            let html = "";
+
+            data.forEach(car => {
+
+                html += `
+                    <tr>
+                        <td>${car.id}</td>
+                        <td>${car.name}</td>
+                        <td>${car.price}</td>
+                        <td>${car.year}</td>
+                        <td>${car.owner}</td>
+                        <td>${car.status}</td>
+
+                        <td>
+                            <button class="btn btn-warning btn-sm"
+                                    onclick="editCar(${car.id})">
+                                Sửa
+                            </button>
+
+                            <button class="btn btn-danger btn-sm"
+                                    onclick="deleteCar(${car.id})">
+                                Xóa
+                            </button>
+                        </td>
+                    </tr>
+                `;
+            });
+
+            $("#carTable").html(html);
+
+        });
+
+    }
+
+    loadCars();
+
+
+    // ===============================
+    // DELETE CAR
+    // ===============================
+
+    function deleteCar(id) {
+
+        if (confirm("Bạn chắc chắn muốn xóa?")) {
+
+            $.ajax({
+                url: "/api/cars/" + id,
+                type: "DELETE",
+                success: function () {
+                    loadCars();
+                }
+            });
+
+        }
+
+    }
+
+</script>

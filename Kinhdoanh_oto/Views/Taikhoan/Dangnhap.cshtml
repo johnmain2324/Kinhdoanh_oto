@@ -1,0 +1,178 @@
+﻿
+
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Đăng nhập - Kinh doanh ô tô</title>
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" />
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css" rel="stylesheet">
+
+    <link href="~/css/taikhoan.css" rel="stylesheet" />
+</head>
+
+<body>
+
+    <div class="login-container">
+
+        <!-- BÊN TRÁI: HÌNH ẢNH -->
+        <div class="login-left">
+            <div class="overlay">
+                <h2>Chạm tới hành trình mơ ước</h2>
+                <p>Khởi đầu trải nghiệm xe đẳng cấp ngay hôm nay</p>
+            </div>
+        </div>
+
+        <!-- BÊN PHẢI: FORM -->
+        <div class="login-right">
+
+            <div class="login-box">
+
+                <h3 class="mb-4">Chào mừng bạn trở lại!</h3>
+
+                <!-- Chọn phân quyền -->
+                <div class="role-switch mb-3">
+                    <button class="role-btn active">Khách hàng</button>
+                    <button class="role-btn">Đối tác / Sale</button>
+                </div>
+
+                <form asp-action="Dangnhap" asp-controller="Taikhoan" method="post">
+
+                    <div class="mb-3 position-relative">
+                        <input type="text"
+                               name="sodienthoai"
+                               class="form-control custom-input"
+                               placeholder="Số điện thoại">
+                    </div>
+
+                    <div class="mb-2 position-relative">
+                        <input type="password"
+                               name="matkhau"
+                               class="form-control custom-input"
+                               id="password"
+                               placeholder="Mật khẩu">
+
+                        <i class="bi bi-eye toggle-password"
+                           onclick="togglePassword()"></i>
+                    </div>
+
+                    <div class="d-flex justify-content-between mb-3 small">
+                        <div>
+                            <input type="checkbox"> Ghi nhớ đăng nhập
+                        </div>
+                        <a href="#">Quên mật khẩu?</a>
+                    </div>
+
+                    <!-- Nút đăng nhập -->
+
+                    <button type="submit" class="btn btn-login w-100 mb-3">
+                        Đăng nhập
+                    </button>
+
+
+                    <!-- OTP -->
+                    <button type="button" class="btn btn-outline-secondary w-100 mb-4">
+                        Đăng nhập bằng mã OTP
+                    </button>
+
+                    <div class="divider mb-3">Hoặc đăng nhập với</div>
+
+                    <!-- Social -->
+                    <div class="social-login">
+                        <button type="button" class="social-btn" onclick="loginGoogle()">
+                            <i class="bi bi-google"></i>
+                        </button>
+                        <button type="button" class="social-btn">
+                            <i class="bi bi-facebook"></i>
+                        </button>
+                        <button type="button" class="social-btn">
+                            Zalo
+                        </button>
+                    </div>
+
+                    <p class="mt-4 text-center small">
+                        Bạn mới đến lần đầu?
+                        <a href="Dangky">Tạo tài khoản</a>
+                    </p>
+
+                </form>
+
+            </div>
+
+        </div>
+
+    </div>
+
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
+        import { getAuth, GoogleAuthProvider, signInWithPopup }
+        from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
+
+        const firebaseConfig = {
+            apiKey: "AIzaSyDFLkQGewJrP7POD49HogKFUb3tu6TZXqA",
+            authDomain: "car-sell-fc75c.firebaseapp.com",
+            projectId: "car-sell-fc75c",
+            storageBucket: "car-sell-fc75c.firebasestorage.app",
+            messagingSenderId: "447097293162",
+            appId: "1:447097293162:web:bdef232f7d1a4478a83d13",
+            measurementId: "G-GZK2SZDTVN"
+        };
+
+        const app = initializeApp(firebaseConfig);
+        const auth = getAuth(app);
+        const provider = new GoogleAuthProvider();
+
+        window.loginGoogle = function () {
+            signInWithPopup(auth, provider)
+                .then((result) => {
+                    const user = result.user;
+
+                    if (!user?.email) {
+                        alert("Khong lay duoc email tu tai khoan Google");
+                        return;
+                    }
+
+                    fetch('/Taikhoan/LoginGoogle', {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json'
+                        },
+                        body: JSON.stringify({
+                            email: user.email,
+                            name: user.displayName
+                        })
+                    })
+                        .then(res => {
+                            if (!res.ok) {
+                                throw new Error("Dang nhap that bai");
+                            }
+                            return res.json();
+                        })
+                        .then(() => {
+                            window.location.href = "/";
+                        })
+                        .catch((error) => {
+                            console.error(error);
+                            alert("Dang nhap Google that bai");
+                        });
+                })
+                .catch((error) => {
+                    console.error(error);
+                    alert(error?.message || "Khong the dang nhap bang Google");
+                });
+        };
+
+        window.togglePassword = function () {
+            var input = document.getElementById("password");
+            input.type = input.type === "password" ? "text" : "password";
+        };
+    </script>
+
+</body>
+</html>

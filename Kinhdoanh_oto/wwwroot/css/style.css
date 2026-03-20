@@ -1,0 +1,547 @@
+﻿/* =========================
+GLOBAL
+========================= */
+body {
+    font-family: 'Inter',sans-serif;
+    background: #0A0A0A;          /* Đổi thành đen sâu thay vì trắng xám */
+    color: #E0E0E0;               /* Text trắng xám nhẹ, dễ đọc trên nền tối */
+    margin: 0;
+}
+a {
+    text-decoration: none;
+}
+
+/* =========================
+NAVBAR
+========================= */
+.navbar-custom {
+    background: #0B0B0F;          /* Đen obsidian sâu hơn */
+}
+    .navbar-custom .nav-link {
+        color: #D0D0D0 !important; /* Bạc nhạt thay vì trắng chói */
+        font-weight: 500;
+        transition: .3s;
+    }
+        .navbar-custom .nav-link:hover {
+            color: #E10600 !important;
+        }
+.navbar-brand {
+    font-weight: 700;
+    letter-spacing: 1px;
+    color: #E10600;               /* Đỏ racing cho brand nổi bật */
+}
+
+/* =========================
+BUTTON CTA
+========================= */
+.btn-cta {
+    background: #E10600;
+    color: white;
+    font-weight: 600;
+    padding: 10px 22px;
+    border-radius: 6px;
+    border: none;
+}
+    .btn-cta:hover {
+        background: #C00000;      /* Đỏ đậm hơn khi hover */
+        box-shadow: 0 0 15px rgba(225,6,0,0.5);
+    }
+
+/* =========================
+HERO
+========================= */
+.hero-section {
+    background-image: url('/images/43f7ef16-3b51-4220-93ec-f37c68e14ccd.jpg');
+    background-size: cover;
+    background-position: center;
+    height: 500px;
+    display: flex;
+    align-items: center;
+    text-align: center;
+    color: white;
+    position: relative;
+}
+    .hero-section::before {
+        content: "";
+        position: absolute;
+        inset: 0;
+        background: rgba(0,0,0,0.65);  /* Tăng độ tối để xe nổi bật hơn */
+    }
+    .hero-section .container {
+        position: relative;
+        z-index: 2;
+    }
+
+/* =========================
+CAR CARD
+========================= */
+.car-card {
+    background: #111111;           /* Đen xám đậm thay vì trắng */
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 8px 25px rgba(0,0,0,0.5);  /* Shadow đậm hơn cho chiều sâu */
+    transition: .3s;
+    border: 1px solid rgba(192,192,192,0.08); /* Viền kính mờ nhẹ */
+}
+    .car-card:hover {
+        transform: translateY(-6px);
+        box-shadow: 0 15px 35px rgba(225,6,0,0.2); /* Shadow đỏ nhẹ khi hover */
+    }
+.car-img {
+    width: 100%;
+    height: 180px;
+    object-fit: cover;
+}
+.car-body {
+    padding: 15px;
+}
+.car-brand {
+    color: #B0B0B0;               /* Bạc nhạt thay vì xám đậm */
+    font-size: 14px;
+}
+.car-price {
+    color: #E10600;
+    font-weight: 700;
+    font-size: 18px;
+}
+.price-big {
+    font-size: 28px;
+    font-weight: 700;
+    color: #E10600;
+}
+
+/* ===== FOOTER ===== */
+.footer-custom {
+    background: linear-gradient(180deg, #2C2222, #050505);
+    color: #CFCFCF;
+    padding: 60px 0 20px;
+    border-top: 1px solid rgba(255,255,255,0.05);
+    position: relative;
+    overflow: hidden;
+}
+
+    /* glow nhẹ phía trên */
+    .footer-custom::before {
+        content: "";
+        position: absolute;
+        top: -100px;
+        left: 50%;
+        transform: translateX(-50%);
+        width: 600px;
+        height: 200px;
+        background: radial-gradient(circle, rgba(225,6,0,0.15), transparent);
+        filter: blur(80px);
+    }
+
+/* ===== COLUMN ===== */
+.footer-col h5,
+.footer-col h6 {
+    color: #fff;
+    margin-bottom: 15px;
+    font-weight: 600;
+}
+
+.footer-col p {
+    color: #A0A0A0;
+    line-height: 1.6;
+}
+
+/* ===== LINKS ===== */
+.footer-col ul {
+    list-style: none;
+    padding: 0;
+}
+
+    .footer-col ul li {
+        margin-bottom: 10px;
+    }
+
+        .footer-col ul li a {
+            color: #A0A0A0;
+            transition: 0.3s;
+            position: relative;
+        }
+
+            /* underline animation */
+            .footer-col ul li a::after {
+                content: "";
+                position: absolute;
+                bottom: -2px;
+                left: 0;
+                width: 0;
+                height: 1px;
+                background: #E10600;
+                transition: 0.3s;
+            }
+
+            .footer-col ul li a:hover {
+                color: #fff;
+            }
+
+                .footer-col ul li a:hover::after {
+                    width: 100%;
+                }
+
+/* ===== SOCIAL ===== */
+.footer-social {
+    margin-top: 15px;
+}
+
+    .footer-social a {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        width: 40px;
+        height: 40px;
+        margin-right: 10px;
+        border-radius: 50%;
+        background: #111;
+        color: #fff;
+        border: 1px solid rgba(255,255,255,0.05);
+        transition: 0.3s;
+    }
+
+        /* hover glow */
+        .footer-social a:hover {
+            background: #E10600;
+            box-shadow: 0 0 15px rgba(225,6,0,0.5);
+            transform: translateY(-3px);
+        }
+
+/* ===== CONTACT TEXT ===== */
+.footer-col strong {
+    color: #fff;
+}
+
+/* ===== BOTTOM ===== */
+.footer-bottom {
+    margin-top: 40px;
+    padding-top: 15px;
+    text-align: center;
+    border-top: 1px solid rgba(255,255,255,0.05);
+    font-size: 14px;
+    color: #777;
+}
+
+/* ===== RESPONSIVE ===== */
+@media (max-width: 768px) {
+    .footer-main {
+        text-align: center;
+    }
+
+    .footer-social {
+        justify-content: center;
+    }
+}
+.footer-social a {
+    animation: floatIcon 3s ease-in-out infinite;
+}
+
+@keyframes floatIcon {
+    0%,100% {
+        transform: translateY(0);
+    }
+
+    50% {
+        transform: translateY(-3px);
+    }
+}
+/* CHATBOX */
+#chatbox {
+    position: fixed;
+    bottom: 120px;
+    right: 30px;
+    width: 320px;
+    background: rgba(20,20,20,0.9);  /* Đen kính mờ thay vì nâu */
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(192,192,192,0.1);
+    border-radius: 12px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.6);
+    padding: 12px;
+    z-index: 9999;
+    color: #E0E0E0;
+}
+#chat-messages {
+    height: 200px;
+    overflow-y: auto;
+    margin-bottom: 10px;
+    width: 100%;
+}
+.chat-input {
+    display: flex;
+    gap: 6px;
+}
+    .chat-input input {
+        flex: 1;
+        padding: 6px;
+        border: 1px solid rgba(192,192,192,0.2);
+        border-radius: 6px;
+        background: #1A1A1A;
+        color: #E0E0E0;
+    }
+    .chat-input button {
+        background: #E10600;
+        color: white;
+        border: none;
+        padding: 6px 12px;
+        border-radius: 6px;
+    }
+#chatToggle {
+    position: fixed !important;
+    bottom: 20px !important;
+    right: 20px !important;
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    border: none;
+    background: #E10600;
+    color: white;
+    font-size: 22px;
+    cursor: pointer;
+    box-shadow: 0 5px 15px rgba(225,6,0,0.4);
+    z-index: 99999;
+}
+
+.user-info {
+    color: #fff;
+    font-weight: 500;
+    padding: 6px 12px;
+    border-radius: 20px;
+    background: rgba(255,255,255,0.08);
+    backdrop-filter: blur(6px);
+    transition: 0.3s;
+}
+
+    .user-info:hover {
+        background: rgba(255,255,255,0.15);
+    }
+
+.user-info {
+    color: #fff;
+    padding: 6px 12px;
+    border-radius: 20px;
+    background: rgba(255,255,255,0.1);
+}
+.nav-user {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 14px; /* giống menu */
+    font-weight: 500;
+    color: #ccc;
+    line-height: 1; /* FIX lệch dòng */
+    height: 100%;
+}
+
+    .nav-user i {
+        font-size: 14px;
+        display: flex;
+        align-items: center;
+    }
+    .nav-user span {
+        transition: 0.3s;
+    }
+
+    .nav-user:hover span {
+        color: #fff;
+    }
+    
+/*Menu*/
+/* =========================
+LUXURY NAVBAR
+========================= */
+
+.luxury-navbar {
+    background: rgba(0,0,0,0.75);
+    backdrop-filter: blur(15px);
+    transition: 0.4s;
+    padding: 18px 0;
+}
+
+    /* SHRINK KHI SCROLL */
+    .luxury-navbar.scrolled {
+        padding: 8px 0;
+        background: rgba(0,0,0,0.9);
+    }
+
+/* NAV LINK */
+.navbar-custom .nav-link {
+    position: relative;
+    color: #C0C0C0 !important;
+    font-size: 14px;
+    margin: 0 10px;
+}
+
+    /* UNDERLINE ANIMATION */
+    .navbar-custom .nav-link::after {
+        content: "";
+        position: absolute;
+        left: 50%;
+        bottom: -5px;
+        width: 0;
+        height: 1px;
+        background: #fff;
+        transition: 0.3s;
+        transform: translateX(-50%);
+    }
+
+    .navbar-custom .nav-link:hover::after {
+        width: 100%;
+    }
+
+/* USER */
+.navbar .dropdown-toggle {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+}
+
+/* CTA BUTTON */
+.btn-cta {
+    background: transparent;
+    border: 1px solid #C0C0C0;
+    color: #fff;
+    transition: 0.3s;
+    position: relative;
+    overflow: hidden;
+}
+
+    /* EFFECT ĐỎ */
+    .btn-cta:hover {
+        background: #E10600;
+        border-color: #E10600;
+        box-shadow: 0 0 15px rgba(225,6,0,0.6);
+    }
+
+/* =========================
+SIDEBAR LUXURY
+========================= */
+
+.sidebar-custom {
+    background: #0B0B0B;
+    color: #fff;
+}
+
+/* MENU GROUP */
+.menu-group {
+    margin-bottom: 20px;
+}
+
+    .menu-group h6 {
+        color: #C0C0C0;
+        margin-bottom: 10px;
+    }
+
+    /* LINK */
+    .menu-group a {
+        display: block;
+        padding: 6px 0;
+        color: #aaa;
+        transition: 0.3s;
+    }
+
+        .menu-group a:hover {
+            color: #fff;
+            transform: translateX(5px);
+        }
+
+/* =========================
+USER HEADER (SIDEBAR)
+========================= */
+
+.sidebar-user {
+    padding: 15px;
+    border-bottom: 1px solid rgba(255,255,255,0.1);
+}
+
+    .sidebar-user strong {
+        color: #fff;
+    }
+
+/* =========================
+ANIMATION STAGGER
+========================= */
+
+.menu-group a {
+    opacity: 0;
+    transform: translateX(-10px);
+    animation: fadeInMenu 0.4s forwards;
+}
+
+    .menu-group a:nth-child(1) {
+        animation-delay: 0.05s;
+    }
+
+    .menu-group a:nth-child(2) {
+        animation-delay: 0.1s;
+    }
+
+    .menu-group a:nth-child(3) {
+        animation-delay: 0.15s;
+    }
+
+    .menu-group a:nth-child(4) {
+        animation-delay: 0.2s;
+    }
+
+@keyframes fadeInMenu {
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+/* ===== NAVBAR LUXURY ===== */
+.luxury-navbar {
+    background: linear-gradient(180deg,#050505, #2C2222);
+    backdrop-filter: blur(10px);
+    transition: all 0.4s ease;
+}
+
+    /* Khi scroll */
+    .luxury-navbar.scrolled {
+        background: rgba(255, 255, 255, 0.85); /* mờ trắng */
+        backdrop-filter: blur(15px);
+        box-shadow: 0 5px 20px rgba(0,0,0,0.2);
+    }
+
+        /* đổi màu chữ khi scroll */
+        .luxury-navbar.scrolled .nav-link {
+            color: #111 !important;
+        }
+
+        .luxury-navbar.scrolled .navbar-brand {
+            color: #E10600 !important;
+        }
+
+/* hover */
+.nav-link {
+    position: relative;
+    transition: 0.3s;
+}
+
+    /* underline animation */
+    .nav-link::after {
+        content: "";
+        position: absolute;
+        bottom: 0;
+        left: 50%;
+        width: 0;
+        height: 1px;
+        background: #E10600;
+        transition: 0.3s;
+        transform: translateX(-50%);
+    }
+
+    .nav-link:hover::after {
+        width: 80%;
+    }
+.hotline-btn {
+    position: fixed;
+    bottom: 80px;
+    right: 20px;
+    background: #E10600;
+    color: #fff;
+    padding: 15px;
+    border-radius: 50%;
+}

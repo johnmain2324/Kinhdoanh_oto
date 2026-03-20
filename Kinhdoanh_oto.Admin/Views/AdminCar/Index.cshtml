@@ -1,0 +1,196 @@
+﻿@{
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+@model IEnumerable<Kinhdoanh_oto.Admin.Models.Car>
+
+<div class="container">
+
+    <div class="d-flex justify-content-between mb-3">
+        <h2>Quản lý kho xe</h2>
+
+        <div>
+            <a class="btn btn-primary" href="/AdminCar/Create">
+                + Thêm xe mới
+            </a>
+
+            <button type="button" onclick="history.back()" class="btn btn-outline-dark ms-2">
+                Quay lại
+            </button>
+        </div>
+    </div>
+
+    <table class="table table-bordered">
+
+        <thead>
+            <tr>
+                <th>Ảnh</th>
+                <th>Tên xe</th>
+                <th>Hãng</th>
+                <th>Giá</th>
+                <th width="150">Thao tác</th>
+            </tr>
+        </thead>
+
+        <tbody>
+
+            @foreach (var car in Model)
+            {
+                <tr>
+                    <td>
+                        <img src="@car.Thumbnail" width="120" />
+                    </td>
+
+                    <td>@car.TenXe</td>
+
+                    <td>@car.HangXe</td>
+
+                    <td>@String.Format("{0:N0} đ", car.GiaNiemYet)</td>
+
+                    <td>
+
+                        <button class="btn btn-warning btn-sm"
+                                onclick="openEditModal(@car.Id,'@Html.Raw(car.TenXe)','@Html.Raw(car.HangXe)','@car.Thumbnail')">
+                            Sửa
+                        </button>
+                        <form asp-action="Delete" method="post" onsubmit="return confirm('Bạn chắc chắn muốn xóa xe này?');">
+                            <input type="hidden" name="id" value="@car.Id" />
+                            <button type="submit" class="btn btn-danger btn-sm">
+                                Xóa
+                            </button>
+                        </form>
+                    </td>
+                </tr>
+            }
+
+        </tbody>
+
+    </table>
+
+</div>
+
+
+<!-- MODAL SỬA XE -->
+<div class="modal fade" id="editModal" tabindex="-1">
+    <div class="modal-dialog modal-xl">
+        <div class="modal-content">
+
+            <div class="modal-header">
+                <h5 class="modal-title">Sửa xe</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+            </div>
+
+            <div class="modal-body">
+
+                <form method="post" enctype="multipart/form-data" action="/AdminCar/Edit">
+
+                    <input type="hidden" id="carId" name="Id" />
+
+                    <div class="row g-3">
+
+                        <div class="col-md-6">
+
+                            <label>Tên xe</label>
+                            <input type="text" id="TenXe" name="TenXe" class="form-control">
+
+                            <label class="mt-2">Hãng xe</label>
+                            <input type="text" id="HangXe" name="HangXe" class="form-control">
+
+                            <label class="mt-2">Dòng xe</label>
+                            <input type="text" id="DongXe" name="DongXe" class="form-control">
+
+                            <label class="mt-2">Năm sản xuất</label>
+                            <input type="number" id="NamSanXuat" name="NamSanXuat" class="form-control">
+
+                            <label class="mt-2">Giá niêm yết</label>
+                            <input type="number" id="GiaNiemYet" name="GiaNiemYet" class="form-control">
+
+                            <label class="mt-2">Giá khuyến mãi</label>
+                            <input type="number" id="GiaKhuyenMai" name="GiaKhuyenMai" class="form-control">
+
+                        </div>
+
+
+                        <div class="col-md-6">
+
+                            <label>Nhiên liệu</label>
+                            <input type="text" id="NhienLieu" name="NhienLieu" class="form-control">
+
+                            <label class="mt-2">Hộp số</label>
+                            <input type="text" id="HopSo" name="HopSo" class="form-control">
+
+                            <label class="mt-2">Công suất</label>
+                            <input type="text" id="CongSuat" name="CongSuat" class="form-control">
+
+                            <label class="mt-2">Màu ngoại thất</label>
+                            <input type="text" id="MauNgoaiThat" name="MauNgoaiThat" class="form-control">
+
+                            <label class="mt-2">Số chỗ</label>
+                            <input type="number" id="SoCho" name="SoCho" class="form-control">
+
+                            <label class="mt-2">Ảnh đại diện</label>
+
+                            <input type="file" name="ThumbnailFile" class="form-control">
+
+                            <img id="previewImage"
+                                 style="width:200px;margin-top:10px;border-radius:6px">
+
+                        </div>
+
+                        <div class="col-12 mt-3">
+
+                            <label>Mô tả</label>
+
+<textarea name="Noidung" id="editor"></textarea>
+
+                        </div>
+
+                    </div>
+
+                    <div class="mt-3">
+                        <button class="btn btn-success">Cập nhật</button>
+                    </div>
+
+                </form>
+
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<script>
+
+    function openEditModal(id, tenxe, hangxe, thumbnail)
+    {
+        document.getElementById("carId").value = id;
+        document.getElementById("TenXe").value = tenxe;
+        document.getElementById("HangXe").value = hangxe;
+
+        document.getElementById("previewImage").src = thumbnail;
+
+        var modal = new bootstrap.Modal(document.getElementById('editModal'));
+        modal.show();
+    }
+
+</script>
+
+
+<script src="https://cdn.ckeditor.com/4.25.1/standard/ckeditor.js"></script>
+
+<script>
+    CKEDITOR.replace('editor');
+</script>
+<script>
+        function deleteCar(id) {
+    if (!confirm("Xóa xe này?")) return;
+
+    fetch('/Xe/Delete', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({ id: id })
+    })
+    .then(res => location.reload());
+}
+</script>

@@ -1,0 +1,209 @@
+﻿@{
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+@model Kinhdoanh_oto.Admin.Models.Car
+
+<div class="container-fluid">
+    <input id="aiInput" class="form-control"
+           placeholder="Nhập: Mercedes E-Class 2024">
+
+    <button id="btnAI" class="btn btn-primary mt-2" onclick="generateByAI()">
+        🤖 Thêm bằng AI
+    </button>
+
+    <div class="card shadow-sm">
+
+        <div class="card-header bg-white">
+            <h4 class="mb-0">Thêm xe mới</h4>
+        </div>
+
+        <div class="card-body">
+
+            <form method="post" enctype="multipart/form-data">
+
+                <div class="row g-3">
+
+                    <!-- LEFT -->
+                    <div class="col-md-6">
+
+                        <div class="mb-3">
+                            <label class="form-label">Tên xe</label>
+                            <input asp-for="TenXe" class="form-control" />
+                        </div>
+
+                        <div class="mb-3">
+                            <label class="form-label">Hãng xe</label>
+                            <input asp-for="HangXe" class="form-control" />
+                        </div>
+
+                        <div class="mb-3">
+                            <label class="form-label">Dòng xe</label>
+                            <input asp-for="DongXe" class="form-control" />
+                        </div>
+
+                        <div class="mb-3">
+                            <label class="form-label">Năm sản xuất</label>
+                            <input asp-for="NamSanXuat" class="form-control" type="number" />
+                        </div>
+
+                        <div class="mb-3">
+                            <label class="form-label">Giá niêm yết</label>
+                            <input asp-for="GiaNiemYet" class="form-control" />
+                        </div>
+
+                        <div class="mb-3">
+                            <label class="form-label">Giá khuyến mãi</label>
+                            <input asp-for="GiaKhuyenMai" class="form-control" />
+                        </div>
+
+                    </div>
+
+                    <!-- RIGHT -->
+                    <div class="col-md-6">
+
+                        <div class="mb-3">
+                            <label class="form-label">Nhiên liệu</label>
+                            <input asp-for="NhienLieu" class="form-control" />
+                        </div>
+
+                        <div class="mb-3">
+                            <label class="form-label">Hộp số</label>
+                            <input asp-for="HopSo" class="form-control" />
+                        </div>
+
+                        <div class="mb-3">
+                            <label class="form-label">Công suất</label>
+                            <input asp-for="CongSuat" class="form-control" />
+                        </div>
+
+                        <div class="mb-3">
+                            <label class="form-label">Màu ngoại thất</label>
+                            <input asp-for="MauNgoaiThat" class="form-control" />
+                        </div>
+
+                        <div class="mb-3">
+                            <label class="form-label">Số chỗ</label>
+                            <input asp-for="SoCho" class="form-control" type="number" />
+                        </div>
+
+                        <div class="mb-3">
+
+                            <label class="form-label">Ảnh đại diện</label>
+
+                            <input type="file" id="ThumbnailFile" name="ThumbnailFile" class="form-control">
+
+                            <img id="preview"
+                                 style="width:200px;margin-top:10px;border-radius:6px;" />
+
+                        </div>
+
+                    </div>
+
+                    <!-- CKEDITOR -->
+                    <textarea asp-for="Noidung" id="editor"></textarea>
+
+                    <script src="https://cdn.ckeditor.com/4.22.1/standard/ckeditor.js"></script>
+
+                    <script>
+                        CKEDITOR.replace('editor');
+                    </script>
+                    <style>
+                    .cke_reset {
+                    margin: 0;
+                    padding: 0;
+                    border: 0;
+                    background: transparent;
+                    text-decoration: none;
+                    width: 1500px;
+                    height: auto;
+                    vertical-align: baseline;
+                    box-sizing: content-box;
+                    position: static;
+                    transition: none;
+                    }
+                    </style>
+                </div>
+
+                <div class="mt-4">
+
+                    <button type="submit" class="btn btn-success px-4">
+                        Lưu xe
+                    </button>
+
+                    <a asp-controller="AdminCar" asp-action="Index" class="btn btn-secondary px-4 ms-2">
+                        Hủy
+                    </a>
+
+                    <button type="button" onclick="history.back()" class="btn btn-outline-dark px-4 ms-2">
+                        Quay lại
+                    </button>
+
+                </div>
+
+            </form>
+
+        </div>
+
+    </div>
+
+</div>
+<script>
+    document.getElementById("ThumbnailFile").addEventListener("change", function(e){
+
+        const file = e.target.files[0];
+
+        if(!file) return;
+
+        const reader = new FileReader();
+
+        reader.onload = function(){
+            document.getElementById("preview").src = reader.result;
+        };
+
+        reader.readAsDataURL(file);
+
+    });
+</script>
+
+<script>
+        function generateByAI() {
+
+        let text = document.getElementById("aiInput").value;
+
+        // 🔥 ĐÚNG BUTTON
+        let btn = document.getElementById("btnAI");
+
+        btn.innerText = "Đang AI...";
+        btn.disabled = true;
+
+        fetch("/AdminCar/CreateByAI", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify({ text: text })
+        })
+    .then(res => res.text())
+    .then(raw => {
+
+        console.log("RAW:", raw); // 👈 DEBUG
+
+        try {
+            let data = JSON.parse(raw);
+
+            document.getElementById("TenXe").value = data.TenXe || "";
+            document.getElementById("HangXe").value = data.HangXe || "";
+
+        } catch (e) {
+            console.error("JSON lỗi:", raw);
+            alert("AI trả dữ liệu lỗi!");
+        }
+    })
+        .catch(err => {
+            console.error(err);
+
+            btn.innerText = "🤖 Thêm bằng AI";
+            btn.disabled = false;
+        });
+    }
+</script>

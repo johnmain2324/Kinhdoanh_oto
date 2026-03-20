@@ -1,0 +1,193 @@
+﻿@model IEnumerable<Kinhdoanh_oto.Admin.Models.Khachhang>
+@{
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+<div class="container-fluid">
+
+    <!-- HEADER -->
+    <div class="d-flex justify-content-between align-items-center mb-4">
+
+        <h3 class="fw-bold">
+            <i class="bi bi-people"></i> Quản lý khách hàng
+        </h3>
+
+        <div>
+
+            <input type="text"
+                   class="form-control d-inline"
+                   style="width:250px"
+                   placeholder="Tìm theo tên hoặc SĐT..." />
+
+            <button class="btn btn-dark ms-2">
+                <i class="bi bi-plus"></i> Thêm khách
+            </button>
+
+        </div>
+
+    </div>
+
+
+    <!-- CARD TABLE -->
+    <div class="card shadow-sm border-0">
+
+        <div class="card-body p-0">
+
+            <table class="table align-middle mb-0">
+
+                <thead class="table-light">
+
+                    <tr>
+                        <th>Khách hàng</th>
+                        <th>Liên hệ</th>
+                        <th>Khu vực</th>
+                        <th>Ngày đăng ký</th>
+                        <th>Trạng thái</th>
+                        <th width="120">Thao tác</th>
+                    </tr>
+
+                </thead>
+
+                <tbody>
+
+                    @foreach (var kh in Model)
+                    {
+                        <tr>
+
+                            <!-- AVATAR + NAME -->
+                            <td>
+
+                                <div class="d-flex align-items-center">
+
+                                    <div class="avatar-circle me-2">
+
+                                        @(kh.Hoten != null ? kh.Hoten.Substring(0, 1) : "?")
+
+                                    </div>
+
+                                    <div>
+
+                                        <div class="fw-semibold">
+                                            @kh.Hoten
+                                        </div>
+
+                                        <small class="text-muted">
+                                            ID: @kh.Id
+                                        </small>
+
+                                    </div>
+
+                                </div>
+
+                            </td>
+
+
+                            <!-- CONTACT -->
+                            <td>
+
+                                <div>
+                                    <i class="bi bi-telephone"></i>
+                                    @kh.Sodienthoai
+                                </div>
+
+                                <small class="text-muted">
+                                    @kh.Email
+                                </small>
+
+                            </td>
+
+
+                            <!-- REGION -->
+                            <td>
+
+                                @kh.Khuvuc
+
+                            </td>
+
+
+                            <!-- DATE -->
+                            <td>
+
+                                @kh.Ngaytao.ToString("dd/MM/yyyy")
+
+                            </td>
+
+
+                            <!-- STATUS -->
+                            <td>
+
+                                @if (kh.Trangthai)
+                                {
+                                    <span class="badge bg-success-subtle text-success">
+                                        Hoạt động
+                                    </span>
+                                }
+                                else
+                                {
+                                    <span class="badge bg-danger-subtle text-danger">
+                                        Khóa
+                                    </span>
+                                }
+
+                            </td>
+
+
+                            <!-- ACTION -->
+                            <td>
+
+                                <a class="btn btn-sm btn-outline-dark me-1">
+                                    <i class="bi bi-eye"></i>
+                                </a>
+
+                                <a class="btn btn-sm btn-outline-primary me-1">
+                                    <i class="bi bi-pencil"></i>
+                                </a>
+
+                                <a class="btn btn-sm btn-outline-danger">
+                                    <i class="bi bi-trash"></i>
+                                </a>
+
+                            </td>
+
+                        </tr>
+                    }
+
+                </tbody>
+
+            </table>
+
+        </div>
+
+    </div>
+
+</div>
+
+
+
+<style>
+
+    .avatar-circle {
+        width: 40px;
+        height: 40px;
+        border-radius: 50%;
+        background: #000;
+        color: #fff;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-weight: 600;
+    }
+
+    table tr {
+        border-bottom: 1px solid #f1f1f1;
+    }
+
+        table tr:hover {
+            background: #fafafa;
+        }
+
+    .card {
+        border-radius: 12px;
+    }
+
+</style>

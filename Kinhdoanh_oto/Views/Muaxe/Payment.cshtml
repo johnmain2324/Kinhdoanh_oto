@@ -1,0 +1,129 @@
+﻿@{
+    ViewData["Title"] = "Thanh toán đặt cọc";
+
+    var phone = Model?.Sodienthoai?.Replace(" ", "") ?? "";
+    var qrUrl = $"https://img.vietqr.io/image/VCB-123456789-compact.png?amount={Model?.TienDatCoc}&addInfo=DATCOC_{phone}";
+}
+
+<link href="~/css/payment.css" rel="stylesheet" />
+
+<div class="container-payment">
+
+    <!-- LEFT -->
+    <div class="left">
+
+        <!-- CONTRACT -->
+        <div class="glass contract-box">
+            <h3>Hợp đồng đặt cọc</h3>
+
+            <p class="contract-text">
+                Tôi, <b>@Model?.Hoten</b>, CCCD <b>@Model?.CCCD</b>,
+                đồng ý đặt cọc xe <b>@Model?.TenXe</b>
+                với số tiền <b class="highlight">@Model?.TienDatCoc.ToString("N0") đ</b>
+            </p>
+
+            <label>Ký tên</label>
+            <canvas id="signaturePad" class="signature-pad"></canvas>
+            <button class="btn-clear" onclick="clearPad()">Xóa</button>
+        </div>
+
+        <!-- QR -->
+        <div class="glass qr-box">
+            <h3>Thanh toán VietQR</h3>
+            <img src="@qrUrl" />
+            <div id="countdown" class="countdown">15:00</div>
+            <p class="note">Vui lòng chuyển khoản đúng nội dung</p>
+        </div>
+
+        <!-- METHODS -->
+        <div class="glass methods-box">
+            <h3>Phương thức khác</h3>
+            <div class="methods">
+                <button>MoMo</button>
+                <button>ZaloPay</button>
+                <button>Visa</button>
+            </div>
+        </div>
+
+    </div>
+
+    <!-- RIGHT -->
+    <div class="right">
+        <div class="glass summary-box">
+            <img src="@Model?.Thumbnail" class="car-image" />
+
+            <h3>@Model?.TenXe</h3>
+
+            <p class="price">
+                Giá xe: @Model?.GiaXe.ToString("N0") đ
+            </p>
+
+            <hr />
+
+            <div class="deposit-box">
+                <span>Đặt cọc</span>
+                <h2>@Model?.TienDatCoc.ToString("N0") đ</h2>
+            </div>
+        </div>
+    </div>
+
+</div>
+<script>
+    // ===== COUNTDOWN =====
+    let time = 900;
+
+    let interval = setInterval(() => {
+
+        if (time <= 0) {
+            clearInterval(interval);
+            document.getElementById("countdown").innerText = "Hết thời gian";
+            return;
+        }
+
+        let m = Math.floor(time / 60);
+        let s = time % 60;
+
+        document.getElementById("countdown").innerText =
+            m + ":" + (s < 10 ? "0" : "") + s;
+
+        time--;
+
+    }, 1000);
+
+
+    // ===== SIGNATURE =====
+    const canvas = document.getElementById("signaturePad");
+    const ctx = canvas.getContext("2d");
+
+    // fix scale canvas
+    canvas.width = canvas.offsetWidth;
+    canvas.height = canvas.offsetHeight;
+
+    let drawing = false;
+
+    canvas.addEventListener("mousedown", (e) => {
+        drawing = true;
+        ctx.beginPath();
+        ctx.moveTo(e.offsetX, e.offsetY);
+    });
+
+    canvas.addEventListener("mouseup", () => {
+        drawing = false;
+    });
+
+    canvas.addEventListener("mousemove", draw);
+
+    function draw(e) {
+        if (!drawing) return;
+
+        ctx.lineWidth = 2;
+        ctx.lineCap = "round";
+
+        ctx.lineTo(e.offsetX, e.offsetY);
+        ctx.stroke();
+    }
+
+    function clearPad() {
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+    }
+</script>
